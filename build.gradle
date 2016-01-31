@@ -1,0 +1,53 @@
+group 'com.subakstudio'
+version '1.0-SNAPSHOT'
+
+buildscript {
+//    dependencies {
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0-beta-4584"
+//    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'application'
+//apply plugin: 'kotlin'
+
+sourceCompatibility = 1.8
+
+mainClassName = 'com.subakstudio.sandbox.threed.lwjgl.HelloWorld'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0-beta-4584"
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+
+    // LWJGL
+//    def lwjglVersion = '2.9.3'
+//    compile "org.lwjgl.lwjgl:lwjgl:${lwjglVersion}"
+//    compile "org.lwjgl.lwjgl:glfw:${lwjglVersion}"
+//    compile "org.lwjgl.lwjgl:lwjgl_util:${lwjglVersion}"
+//    compile "org.lwjgl.lwjgl:lwjgl_util_applet:${lwjglVersion}"
+//    compile "org.lwjgl.lwjgl:parent:${lwjglVersion}"
+//    compile "org.lwjgl.lwjgl:lwjgl-platform:${lwjglVersion}"
+//    winNatives "org.lwjgl.lwjgl:lwjgl-platform:${lwjglVersion}:natives-windows"
+
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+    // JInput
+//    compile 'net.java.jinput:jinput:2.0.6'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+// The run task added by the application plugin
+// is also of type JavaExec.
+tasks.withType(JavaExec) {
+    // Assign all Java system properties from
+    // the command line to the JavaExec task.
+    println "Set java.library.path: " + file('libs/native')
+    System.setProperty('java.library.path', 'libs/native')
+    systemProperties System.properties
+}
